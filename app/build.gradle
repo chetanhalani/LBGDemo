@@ -5,6 +5,8 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+apply from: '../dependencies.gradle'
+
 android {
     compileSdk 32
 
@@ -17,10 +19,6 @@ android {
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField "String","BASE_URL","\"https://api.artic.edu/\""
-        buildConfigField "String","IMAGE_URL","\"https://www.artic.edu/\""
-        buildConfigField "String","QUERY_FIELDS","\"id,title,artist_display,date_display,main_reference_number,image_id\""
     }
 
     buildTypes {
@@ -36,8 +34,8 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dataBinding {
-        enabled true
+    buildFeatures {
+        viewBinding = true
     }
     testOptions {
         unitTests.includeAndroidResources = true
@@ -45,70 +43,47 @@ android {
 }
 
 dependencies {
-    def activity_version = "1.5.1"
-
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.8.0-rc01'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation("androidx.activity:activity-ktx:$activity_version")
-
-    def lifecycle_version = "2.5.1"
-    def room_version = "2.4.3"
-    def retrofit_version = "2.9.0"
-    def glide_version = "4.14.2"
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
 
 
-    // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    // LiveData
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    // Saved state module for ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
-    // Annotation processor
-    //kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    implementation androidx.coreKtx
+    implementation androidx.appCompat
+    implementation androidx.constraintlayout
+    implementation androidx.activityKtx
+    implementation androidx.lifecycleViewModelKtx
+    implementation androidx.lifecycleLiveDataKtx
+    implementation androidx.lifecycleViewModelSavedState
+    implementation androidx.lifecycleCommonJava8
 
-    //Room
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-
-    //Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation google.material
 
     //Hilt
-    implementation 'com.google.dagger:hilt-android:2.43.2'
-    kapt 'com.google.dagger:hilt-compiler:2.43.2'
-
-    //Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.6"
+    implementation hilt.android
+    kapt hilt.compiler
 
     //Glide
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    implementation glide.glide
+    annotationProcessor glide.compiler
 
     // Required -- JUnit 4 framework
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2'
-    testImplementation 'com.google.truth:truth:1.1.3'
-    testImplementation 'androidx.test.ext:junit-ktx:1.1.4'
-    testImplementation 'org.mockito:mockito-core:3.3.3'
+    testImplementation test.junit
+    testImplementation test.coreTesting
+    testImplementation test.couroutineTest
+    testImplementation test.truth
+    testImplementation test.junitKtx
+    testImplementation test.mockito
 
     // Robolectric environment
-    testImplementation 'org.robolectric:robolectric:4.9.2'
+    testImplementation test.robolectric_version
 
-    androidTestImplementation "junit:junit:4.13.2"
-    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2"
-    androidTestImplementation "com.google.truth:truth:1.1.3"
-    androidTestImplementation "com.google.truth.extensions:truth-java8-extension:1.1.3"
-    androidTestImplementation "androidx.test.ext:junit:1.1.4"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.0"
-
+    androidTestImplementation test.junit
+    androidTestImplementation test.coreTesting
+    androidTestImplementation test.couroutineTest
+    androidTestImplementation test.truth
+    androidTestImplementation test.truthExtension
+    androidTestImplementation test.junitExtension
+    androidTestImplementation test.espressoCore
 
 
 }

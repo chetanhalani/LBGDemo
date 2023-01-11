@@ -7,6 +7,14 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LBGDemo.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LBGDemo.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LBGDemo.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LBGDemo.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/LBGDemo.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/LBGDemo.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/LBGDemo.data.iml" filepath="$PROJECT_DIR$/.idea/modules/data/LBGDemo.data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/LBGDemo.data.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/data/LBGDemo.data.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/LBGDemo.data.main.iml" filepath="$PROJECT_DIR$/.idea/modules/data/LBGDemo.data.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/LBGDemo.data.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/data/LBGDemo.data.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/LBGDemo.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/LBGDemo.domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/LBGDemo.domain.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/LBGDemo.domain.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/LBGDemo.domain.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/LBGDemo.domain.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/LBGDemo.domain.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/LBGDemo.domain.unitTest.iml" />
     </modules>
   </component>
 </project>
