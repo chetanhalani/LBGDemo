@@ -74,7 +74,7 @@ dependencies {
     testImplementation test.couroutineTest
     testImplementation test.truth
     testImplementation test.junitKtx
-    testImplementation test.mockito
+    testImplementation test.mockK
 
     // Robolectric environment
     testImplementation test.robolectric_version

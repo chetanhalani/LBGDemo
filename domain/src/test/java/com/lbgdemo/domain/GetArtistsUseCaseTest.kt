@@ -7,15 +7,15 @@ import com.lbgdemo.data.model.Artist
 import com.lbgdemo.data.model.ArtistList
 import com.lbgdemo.data.model.DataResponse
 import com.lbgdemo.data.respository.ArtistRepository
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
 
 @RunWith(AndroidJUnit4::class)
 class GetArtistsUseCaseTest {
@@ -23,7 +23,7 @@ class GetArtistsUseCaseTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @Mock
+    @MockK
     lateinit var artistRepository: ArtistRepository
 
     private val fakeArtistData = listOf(
@@ -37,15 +37,14 @@ class GetArtistsUseCaseTest {
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockKAnnotations.init(this, relaxUnitFun = true)
         getArtistsUseCase = GetArtistsUseCase(artistRepository)
     }
 
     @Test
     fun `test results found from remote are saved and returned`() {
         runBlocking {
-            Mockito.`when`(artistRepository.getArtists())
-                .thenReturn(fakeArtistListDataResponse)
+            coEvery { artistRepository.getArtists() } returns fakeArtistListDataResponse
             val resultData = getArtistsUseCase.execute()
             Assert.assertEquals(resultData, fakeArtistListDataResponse)
         }

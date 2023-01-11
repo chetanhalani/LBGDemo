@@ -8,25 +8,25 @@ import com.lbgdemo.data.model.DataResponse
 import com.lbgdemo.data.remote.ArtistRemoteDatasource
 import com.lbgdemo.data.respository.ArtistRepository
 import com.lbgdemo.data.respository.ArtistRepositoryImpl
+import io.mockk.MockKAnnotations
+import io.mockk.MockKException
+import io.mockk.coEvery
+import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
-import org.mockito.exceptions.base.MockitoException
 
 class ArtistRepositoryImplTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @Mock
+    @MockK
     lateinit var artistRemoteDatasource: ArtistRemoteDatasource
 
-    @Mock
+    @MockK
     lateinit var artistLocalDatasource: ArtistLocalDataSource
 
     private lateinit var artistRepository: ArtistRepository
@@ -41,16 +41,15 @@ class ArtistRepositoryImplTest {
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockKAnnotations.init(this, relaxUnitFun = true)
         artistRepository = ArtistRepositoryImpl(artistRemoteDatasource, artistLocalDatasource)
     }
 
     @Test
     fun `test getArtists list returned from server`() {
         runBlocking {
-            Mockito.`when`(artistRemoteDatasource.getArtists())
-                .thenReturn(fakeArtistListDataResponse)
-            Mockito.`when`(artistLocalDatasource.getArtists()).thenReturn(emptyList())
+            coEvery { artistRemoteDatasource.getArtists() } returns fakeArtistListDataResponse
+            coEvery { artistLocalDatasource.getArtists() } returns emptyList()
             val resultData = artistRepository.getArtists()
             assertEquals(resultData, fakeArtistListDataResponse)
         }
@@ -59,9 +58,8 @@ class ArtistRepositoryImplTest {
     @Test
     fun `test results list not returned from server`() {
         runBlocking {
-            Mockito.`when`(artistRemoteDatasource.getArtists())
-                .thenReturn(fakeErrorArtistListDataResponse)
-            Mockito.`when`(artistLocalDatasource.getArtists()).thenReturn(emptyList())
+            coEvery { artistRemoteDatasource.getArtists() } returns fakeErrorArtistListDataResponse
+            coEvery { artistLocalDatasource.getArtists() } returns emptyList()
             val resultData = artistRepository.getArtists()
             assertEquals(resultData, fakeErrorArtistListDataResponse)
         }
@@ -70,9 +68,8 @@ class ArtistRepositoryImplTest {
     @Test
     fun `test results list not returned from server but local returned list`() {
         runBlocking {
-            Mockito.`when`(artistRemoteDatasource.getArtists())
-                .thenReturn(fakeErrorArtistListDataResponse)
-            Mockito.`when`(artistLocalDatasource.getArtists()).thenReturn(fakeArtistData)
+            coEvery { artistRemoteDatasource.getArtists() } returns fakeErrorArtistListDataResponse
+            coEvery { artistLocalDatasource.getArtists() } returns fakeArtistData
             val resultData = artistRepository.getArtists()
             assertEquals(
                 (resultData as DataResponse.Success<ArtistList>).data.artists,
@@ -84,9 +81,9 @@ class ArtistRepositoryImplTest {
     @Test
     fun `test results list not returned from local thrown exception on server`() {
         runBlocking {
-            val mockitoException = MockitoException("Unknown Exception")
-            Mockito.`when`(artistRemoteDatasource.getArtists()).thenThrow(mockitoException)
-            Mockito.`when`(artistLocalDatasource.getArtists()).thenReturn(fakeArtistData)
+            val mockException = MockKException("Unknown Exception")
+            coEvery { artistRemoteDatasource.getArtists() } throws mockException
+            coEvery { artistLocalDatasource.getArtists() } returns fakeArtistData
             val resultData = artistRepository.getArtists()
             assertEquals(
                 (resultData as DataResponse.Success<ArtistList>).data.artists,
