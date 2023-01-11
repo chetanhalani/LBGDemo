@@ -1,8 +1,6 @@
 package com.lbgdemo.data.respository
 
-import android.util.Log
 import com.lbgdemo.data.local.ArtistLocalDataSource
-import com.lbgdemo.data.model.Artist
 import com.lbgdemo.data.model.ArtistList
 import com.lbgdemo.data.model.DataResponse
 import com.lbgdemo.data.remote.ArtistRemoteDatasource
@@ -29,12 +27,14 @@ class ArtistRepositoryImpl(
     private suspend fun fetchArtists(): DataResponse<ArtistList> {
         try {
             val list = artistLocalDataSource.getArtists()
-            if(list.isNotEmpty()) {
+            if (list.isNotEmpty()) {
                 return DataResponse.Success(ArtistList(list))
             }
             val artistListRespose = artistRemoteDatasource.getArtists()
-            if(artistListRespose is DataResponse.Success) {
-                if(artistListRespose.data.artists.isNotEmpty()) artistLocalDataSource.saveArtists(artistListRespose.data.artists)
+            if (artistListRespose is DataResponse.Success) {
+                if (artistListRespose.data.artists.isNotEmpty()) artistLocalDataSource.saveArtists(
+                    artistListRespose.data.artists
+                )
             }
             return artistListRespose
         } catch (exception: Exception) {

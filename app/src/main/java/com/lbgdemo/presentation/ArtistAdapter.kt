@@ -1,10 +1,10 @@
+@file:Suppress("KDocUnresolvedReference")
+
 package com.lbgdemo.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.lbgdemo.data.BuildConfig
 import com.lbgdemo.data.model.Artist
 import com.lbgdemo.databinding.ListItemBinding
 import com.lbgdemo.extension.setThumbnailImage

@@ -2,8 +2,6 @@ package com.lbgdemo.data.remote.base
 
 import com.lbgdemo.data.model.DataResponse
 import retrofit2.Response
-import retrofit2.Retrofit
-import java.io.IOException
 
 /**
  * Base class for Remote Data source

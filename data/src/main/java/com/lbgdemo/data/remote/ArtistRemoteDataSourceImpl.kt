@@ -3,7 +3,6 @@ package com.lbgdemo.data.remote
 import com.lbgdemo.data.api.LBGDemoService
 import com.lbgdemo.data.model.ArtistList
 import com.lbgdemo.data.model.DataResponse
-import retrofit2.Response
 
 class ArtistRemoteDataSourceImpl(
     private val lbgService: LBGDemoService,

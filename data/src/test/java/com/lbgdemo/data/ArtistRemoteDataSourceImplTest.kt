@@ -8,11 +8,10 @@ import com.lbgdemo.data.model.DataResponse
 import com.lbgdemo.data.remote.ArtistRemoteDataSourceImpl
 import com.lbgdemo.data.remote.ArtistRemoteDatasource
 import kotlinx.coroutines.runBlocking
-import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
@@ -28,15 +27,15 @@ class ArtistRemoteDataSourceImplTest {
     @Mock
     lateinit var lbgService: LBGDemoService
 
-    val fields = BuildConfig.QUERY_FIELDS
+    private val fields = BuildConfig.QUERY_FIELDS
 
-    val fakeArtistData = listOf(
-        Artist(1,"Chetan","Intermediate","xyz_abc"),
-        Artist(2,"Mohan","Expert","abc_xyz")
+    private val fakeArtistData = listOf(
+        Artist(1, "Chetan", "Intermediate", "xyz_abc"),
+        Artist(2, "Mohan", "Expert", "abc_xyz")
     )
-    val fakeArtistListData = ArtistList(fakeArtistData)
+    private val fakeArtistListData = ArtistList(fakeArtistData)
 
-    lateinit var artistRemoteDatasource : ArtistRemoteDatasource
+    private lateinit var artistRemoteDatasource: ArtistRemoteDatasource
 
     @Before
     fun setUp() {
@@ -47,19 +46,21 @@ class ArtistRemoteDataSourceImplTest {
     @Test
     fun `test results list returned from server`() {
         runBlocking {
-            Mockito.`when`(lbgService.getArtists(fields)).thenReturn(retrofit2.Response.success(fakeArtistListData))
+            Mockito.`when`(lbgService.getArtists(fields))
+                .thenReturn(retrofit2.Response.success(fakeArtistListData))
             val resultData = artistRemoteDatasource.getArtists()
-            Assert.assertTrue(resultData is DataResponse.Success<ArtistList>)
-            Assert.assertEquals((resultData as DataResponse.Success<ArtistList>).data, fakeArtistListData)
+            assertTrue(resultData is DataResponse.Success<ArtistList>)
+            assertEquals((resultData as DataResponse.Success<ArtistList>).data, fakeArtistListData)
         }
     }
 
     @Test
     fun `test results list not returned from server`() {
         runBlocking {
-            Mockito.`when`(lbgService.getArtists(fields)).thenReturn(retrofit2.Response.error(500, "".toResponseBody()))
+            Mockito.`when`(lbgService.getArtists(fields))
+                .thenReturn(retrofit2.Response.error(500, "".toResponseBody()))
             val resultData = artistRemoteDatasource.getArtists()
-            Assert.assertTrue(resultData is DataResponse.Error)
+            assertTrue(resultData is DataResponse.Error)
         }
     }
 
@@ -69,7 +70,7 @@ class ArtistRemoteDataSourceImplTest {
             val mockitoException = MockitoException("Unknown Exception")
             Mockito.`when`(lbgService.getArtists(fields)).thenThrow(mockitoException)
             val resultData = artistRemoteDatasource.getArtists()
-            Assert.assertTrue(resultData is DataResponse.Error)
+            assertTrue(resultData is DataResponse.Error)
         }
     }
 }

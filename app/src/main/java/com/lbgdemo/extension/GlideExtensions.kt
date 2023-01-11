@@ -23,6 +23,6 @@ fun ImageView.setThumbnailImage(
 /**
  * Extension function to get thumbnail image from imageId of  the artist.
  */
-fun String.getThumbImageUrlFromImageId() : String {
+fun String.getThumbImageUrlFromImageId(): String {
     return BuildConfig.IMAGE_URL + Constants.IMAGE_ID_PREFIX + this + Constants.IMAGE_ID_SUFFIX
 }

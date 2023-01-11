@@ -7,11 +7,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.lbgdemo.data.model.ArtistList
+import com.lbgdemo.R
 import com.lbgdemo.data.model.DataResponse
 import com.lbgdemo.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import com.lbgdemo.R
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -44,12 +43,16 @@ class MainActivity : AppCompatActivity() {
         binding.artistProgressBar.visibility = View.VISIBLE
         val responseLiveData = artistViewModel.getArtists()
         responseLiveData.observe(this) {
-            when(it) {
+            when (it) {
                 is DataResponse.Success -> {
                     adapter.setList(it.data.artists)
                     adapter.notifyDataSetChanged()
-                    if(it.data.artists.isEmpty()) {
-                        Snackbar.make(binding.root, getString(R.string.no_records_found), Snackbar.LENGTH_SHORT).show()
+                    if (it.data.artists.isEmpty()) {
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.no_records_found),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
                 is DataResponse.Error -> {

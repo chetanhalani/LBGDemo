@@ -1,27 +1,21 @@
 package com.lbgdemo.domain
 
 
-import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.lbgdemo.data.api.LBGDemoService
-import com.lbgdemo.data.db.LBGDatabase
-import com.lbgdemo.data.local.ArtistLocalDataSourceImpl
 import com.lbgdemo.data.model.Artist
 import com.lbgdemo.data.model.ArtistList
 import com.lbgdemo.data.model.DataResponse
-import com.lbgdemo.data.remote.ArtistRemoteDataSourceImpl
 import com.lbgdemo.data.respository.ArtistRepository
-import com.lbgdemo.data.respository.ArtistRepositoryImpl
 import kotlinx.coroutines.runBlocking
-import org.junit.*
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
-import retrofit2.Response
 
 @RunWith(AndroidJUnit4::class)
 class GetArtistsUseCaseTest {
@@ -39,7 +33,7 @@ class GetArtistsUseCaseTest {
     private val fakeArtistListData = ArtistList(fakeArtistData)
     private val fakeArtistListDataResponse = DataResponse.Success(fakeArtistListData)
 
-    private lateinit var getArtistsUseCase : GetArtistsUseCase
+    private lateinit var getArtistsUseCase: GetArtistsUseCase
 
     @Before
     fun setUp() {
