@@ -55,6 +55,8 @@ dependencies {
     implementation androidx.lifecycleLiveDataKtx
     implementation androidx.lifecycleViewModelSavedState
     implementation androidx.lifecycleCommonJava8
+    implementation androidx.navigationKtx
+    implementation androidx.navigationFragmentKtx
 
     implementation google.material
 
