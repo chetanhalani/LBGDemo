@@ -1,0 +1,74 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+apply from: '../dependencies.gradle'
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+
+        buildConfigField "String", "BASE_URL", "\"https://api.artic.edu/\""
+        buildConfigField "String", "IMAGE_URL", "\"https://www.artic.edu/\""
+        buildConfigField "String", "QUERY_FIELDS", "\"id,title,artist_display,date_display,main_reference_number,image_id\""
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation androidx.room
+    kapt androidx.roomCompiler
+    implementation androidx.roomKtx
+
+    //Coroutines
+    implementation kotlin.coroutines
+
+    //Retrofit
+    implementation retrofit.retrofit
+    implementation retrofit.converter
+    implementation retrofit.interceptor
+
+    //Hilt
+    implementation hilt.android
+    kapt hilt.compiler
+
+    // Required -- JUnit 4 framework
+    testImplementation test.junit
+    testImplementation test.coreTesting
+    testImplementation test.couroutineTest
+    testImplementation test.truth
+    testImplementation test.junitKtx
+    testImplementation test.mockito
+    // Robolectric environment
+    testImplementation test.robolectric_version
+
+    androidTestImplementation test.junit
+    androidTestImplementation test.coreTesting
+    androidTestImplementation test.couroutineTest
+    androidTestImplementation test.truth
+    androidTestImplementation test.truthExtension
+    androidTestImplementation test.junitExtension
+    androidTestImplementation test.espressoCore
+}
