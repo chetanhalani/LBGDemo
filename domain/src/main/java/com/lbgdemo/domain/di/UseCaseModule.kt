@@ -14,6 +14,6 @@ abstract class UseCaseModule {
 
     @Binds
     @Singleton
-    abstract fun bindGetArtistsUseCase(getArtistsUseCaseImpl: GetArtistsUseCaseImpl): GetArtistsUseCase
+    internal abstract fun bindGetArtistsUseCase(getArtistsUseCaseImpl: GetArtistsUseCaseImpl): GetArtistsUseCase
 
 }

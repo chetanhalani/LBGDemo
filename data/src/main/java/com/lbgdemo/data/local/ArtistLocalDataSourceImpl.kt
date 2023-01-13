@@ -3,7 +3,7 @@ package com.lbgdemo.data.local
 import com.lbgdemo.data.db.ArtistDao
 import com.lbgdemo.data.model.Artist
 
-class ArtistLocalDataSourceImpl(private val artistDao: ArtistDao) :
+internal class ArtistLocalDataSourceImpl(private val artistDao: ArtistDao) :
     ArtistLocalDataSource {
     override suspend fun getArtists(): List<Artist> {
         return artistDao.getArtists()

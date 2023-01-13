@@ -4,7 +4,7 @@ import com.lbgdemo.data.api.LBGDemoService
 import com.lbgdemo.data.model.ArtistList
 import com.lbgdemo.domain.model.DataResponse
 
-class ArtistRemoteDataSourceImpl(
+internal class ArtistRemoteDataSourceImpl(
     private val lbgService: LBGDemoService,
     private val fields: String
 ) : ArtistRemoteDatasource() {

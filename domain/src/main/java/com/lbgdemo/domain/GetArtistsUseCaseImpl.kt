@@ -6,7 +6,7 @@ import com.lbgdemo.domain.repository.ArtistRepository
 import javax.inject.Inject
 
 
-class GetArtistsUseCaseImpl @Inject constructor(private val artistRepository: ArtistRepository) : GetArtistsUseCase {
+internal class GetArtistsUseCaseImpl @Inject constructor(private val artistRepository: ArtistRepository) : GetArtistsUseCase {
 
     /**
      * use case to write business logic if needed for getting artists
