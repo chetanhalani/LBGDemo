@@ -7,7 +7,7 @@ import com.lbgdemo.domain.model.ArtistListEntity
 import com.lbgdemo.domain.model.DataResponse
 import com.lbgdemo.domain.repository.ArtistRepository
 
-class ArtistRepositoryImpl(
+internal class ArtistRepositoryImpl(
     private val artistRemoteDatasource: ArtistRemoteDatasource,
     private val artistLocalDataSource: ArtistLocalDataSource
 ) : ArtistRepository {
