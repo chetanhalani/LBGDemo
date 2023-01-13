@@ -4,16 +4,18 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.lbgdemo.data.local.ArtistLocalDataSource
 import com.lbgdemo.data.model.Artist
 import com.lbgdemo.data.model.ArtistList
-import com.lbgdemo.data.model.DataResponse
 import com.lbgdemo.data.remote.ArtistRemoteDatasource
-import com.lbgdemo.data.respository.ArtistRepository
+import com.lbgdemo.domain.repository.ArtistRepository
 import com.lbgdemo.data.respository.ArtistRepositoryImpl
+import com.lbgdemo.domain.model.ArtistListEntity
+import com.lbgdemo.domain.model.DataResponse
 import io.mockk.MockKAnnotations
 import io.mockk.MockKException
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -51,7 +53,8 @@ class ArtistRepositoryImplTest {
             coEvery { artistRemoteDatasource.getArtists() } returns fakeArtistListDataResponse
             coEvery { artistLocalDatasource.getArtists() } returns emptyList()
             val resultData = artistRepository.getArtists()
-            assertEquals(resultData, fakeArtistListDataResponse)
+            assertTrue(resultData is DataResponse.Success<ArtistListEntity>)
+            assertEquals((resultData as DataResponse.Success<ArtistListEntity>).data.artistList.size, fakeArtistListDataResponse.data.artists.size)
         }
     }
 
@@ -61,7 +64,7 @@ class ArtistRepositoryImplTest {
             coEvery { artistRemoteDatasource.getArtists() } returns fakeErrorArtistListDataResponse
             coEvery { artistLocalDatasource.getArtists() } returns emptyList()
             val resultData = artistRepository.getArtists()
-            assertEquals(resultData, fakeErrorArtistListDataResponse)
+            assertEquals((resultData as DataResponse.Error).msg, fakeErrorArtistListDataResponse.msg)
         }
     }
 
@@ -72,8 +75,8 @@ class ArtistRepositoryImplTest {
             coEvery { artistLocalDatasource.getArtists() } returns fakeArtistData
             val resultData = artistRepository.getArtists()
             assertEquals(
-                (resultData as DataResponse.Success<ArtistList>).data.artists,
-                fakeArtistData
+                (resultData as DataResponse.Success<ArtistListEntity>).data.artistList.size,
+                fakeArtistData.size
             )
         }
     }
@@ -86,8 +89,8 @@ class ArtistRepositoryImplTest {
             coEvery { artistLocalDatasource.getArtists() } returns fakeArtistData
             val resultData = artistRepository.getArtists()
             assertEquals(
-                (resultData as DataResponse.Success<ArtistList>).data.artists,
-                fakeArtistData
+                (resultData as DataResponse.Success<ArtistListEntity>).data.artistList.size,
+                fakeArtistData.size
             )
         }
     }

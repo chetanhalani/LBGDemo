@@ -5,20 +5,20 @@ package com.lbgdemo.artist
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.lbgdemo.data.model.Artist
 import com.lbgdemo.databinding.ListItemBinding
+import com.lbgdemo.domain.model.ArtistEntity
 import com.lbgdemo.extension.setThumbnailImage
 
 /**
  * RecyclerViewAdapter for Artist
  */
 class ArtistAdapter : RecyclerView.Adapter<ArtistAdapter.MyViewHolder>() {
-    private val artistList = ArrayList<Artist>()
+    private val artistList = ArrayList<ArtistEntity>()
 
     /**
      * Method to set data for the adapter
      */
-    fun setList(artists: List<Artist>) {
+    fun setList(artists: List<ArtistEntity>) {
         artistList.clear()
         artistList.addAll(artists)
     }
@@ -45,10 +45,10 @@ class ArtistAdapter : RecyclerView.Adapter<ArtistAdapter.MyViewHolder>() {
         /**
          * Method to bind the data
          */
-        fun bind(artist: Artist) {
-            binding.titleTextView.text = artist.title ?: ""
-            binding.descriptionTextView.text = artist.artistDisplay ?: ""
-            binding.imageView.setThumbnailImage(artist.imageId)
+        fun bind(artist: ArtistEntity) {
+            binding.titleTextView.text = artist.artistTitle ?: ""
+            binding.descriptionTextView.text = artist.artistDisplayName ?: ""
+            binding.imageView.setThumbnailImage(artist.artistImageId)
 
         }
     }

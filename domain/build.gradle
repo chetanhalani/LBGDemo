@@ -34,7 +34,6 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':data')
 
     implementation androidx.room
     kapt androidx.roomCompiler

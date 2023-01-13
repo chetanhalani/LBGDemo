@@ -38,6 +38,8 @@ android {
 
 dependencies {
 
+    implementation project(path: ':domain')
+
     implementation androidx.room
     kapt androidx.roomCompiler
     implementation androidx.roomKtx
@@ -71,4 +73,5 @@ dependencies {
     androidTestImplementation test.truthExtension
     androidTestImplementation test.junitExtension
     androidTestImplementation test.espressoCore
+    androidTestImplementation test.robolectric_version
 }

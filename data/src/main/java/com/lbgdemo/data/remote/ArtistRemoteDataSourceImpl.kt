@@ -2,7 +2,7 @@ package com.lbgdemo.data.remote
 
 import com.lbgdemo.data.api.LBGDemoService
 import com.lbgdemo.data.model.ArtistList
-import com.lbgdemo.data.model.DataResponse
+import com.lbgdemo.domain.model.DataResponse
 
 class ArtistRemoteDataSourceImpl(
     private val lbgService: LBGDemoService,

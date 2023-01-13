@@ -1,15 +1,12 @@
 package com.lbgdemo.domain
 
-import com.lbgdemo.data.model.ArtistList
-import com.lbgdemo.data.model.DataResponse
-import com.lbgdemo.data.respository.ArtistRepository
-import javax.inject.Inject
+import com.lbgdemo.domain.model.ArtistListEntity
+import com.lbgdemo.domain.model.DataResponse
 
-class GetArtistsUseCase @Inject constructor(private val artistRepository: ArtistRepository) {
 
+interface GetArtistsUseCase {
     /**
-     * use case to write business logic if needed for getting artists
+     * method to fetch artists
      */
-    suspend fun execute(): DataResponse<ArtistList> = artistRepository.getArtists()
-
+    suspend fun execute(): DataResponse<ArtistListEntity>
 }

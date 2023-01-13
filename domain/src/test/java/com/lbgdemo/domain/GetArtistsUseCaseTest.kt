@@ -3,10 +3,10 @@ package com.lbgdemo.domain
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.lbgdemo.data.model.Artist
-import com.lbgdemo.data.model.ArtistList
-import com.lbgdemo.data.model.DataResponse
-import com.lbgdemo.data.respository.ArtistRepository
+import com.lbgdemo.domain.model.ArtistEntity
+import com.lbgdemo.domain.model.ArtistListEntity
+import com.lbgdemo.domain.model.DataResponse
+import com.lbgdemo.domain.repository.ArtistRepository
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -27,10 +27,10 @@ class GetArtistsUseCaseTest {
     lateinit var artistRepository: ArtistRepository
 
     private val fakeArtistData = listOf(
-        Artist(1, "Chetan", "Intermediate", "xyz_abc"),
-        Artist(2, "Mohan", "Expert", "abc_xyz")
+        ArtistEntity(1, "Chetan", "Intermediate", "xyz_abc"),
+        ArtistEntity(2, "Mohan", "Expert", "abc_xyz")
     )
-    private val fakeArtistListData = ArtistList(fakeArtistData)
+    private val fakeArtistListData = ArtistListEntity(fakeArtistData)
     private val fakeArtistListDataResponse = DataResponse.Success(fakeArtistListData)
 
     private lateinit var getArtistsUseCase: GetArtistsUseCase
@@ -38,7 +38,7 @@ class GetArtistsUseCaseTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = true)
-        getArtistsUseCase = GetArtistsUseCase(artistRepository)
+        getArtistsUseCase = GetArtistsUseCaseImpl(artistRepository)
     }
 
     @Test

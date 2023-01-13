@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lbgdemo.R
-import com.lbgdemo.data.model.DataResponse
 import com.lbgdemo.databinding.FragmentArtistBinding
+import com.lbgdemo.domain.model.DataResponse
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,13 +49,12 @@ class ArtistFragment : Fragment() {
      */
     private fun fetchArtists() {
         binding.artistProgressBar.visibility = View.VISIBLE
-        val responseLiveData = artistViewModel.getArtists()
-        responseLiveData.observe(this) {
+        artistViewModel.artistList.observe(this) {
             when (it) {
                 is DataResponse.Success -> {
-                    adapter.setList(it.data.artists)
+                    adapter.setList(it.data.artistList)
                     adapter.notifyDataSetChanged()
-                    if (it.data.artists.isEmpty()) {
+                    if (it.data.artistList.isEmpty()) {
                         Snackbar.make(
                             binding.root,
                             getString(R.string.no_records_found),

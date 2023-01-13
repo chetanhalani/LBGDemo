@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.lbgdemo.data.api.LBGDemoService
 import com.lbgdemo.data.model.Artist
 import com.lbgdemo.data.model.ArtistList
-import com.lbgdemo.data.model.DataResponse
+import com.lbgdemo.domain.model.DataResponse
 import com.lbgdemo.data.remote.ArtistRemoteDataSourceImpl
 import com.lbgdemo.data.remote.ArtistRemoteDatasource
 import io.mockk.MockKAnnotations
@@ -48,8 +48,7 @@ class ArtistRemoteDataSourceImplTest {
         runBlocking {
             coEvery { lbgService.getArtists(fields) } returns retrofit2.Response.success(fakeArtistListData)
             val resultData = artistRemoteDatasource.getArtists()
-            assertTrue(resultData is DataResponse.Success<ArtistList>)
-            assertEquals((resultData as DataResponse.Success<ArtistList>).data, fakeArtistListData)
+            assertEquals((resultData as DataResponse.Success).data, fakeArtistListData)
         }
     }
 

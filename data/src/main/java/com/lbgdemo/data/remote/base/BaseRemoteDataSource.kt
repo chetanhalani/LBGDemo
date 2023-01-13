@@ -1,6 +1,6 @@
 package com.lbgdemo.data.remote.base
 
-import com.lbgdemo.data.model.DataResponse
+import com.lbgdemo.domain.model.DataResponse
 import retrofit2.Response
 
 /**
